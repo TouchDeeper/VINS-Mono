@@ -133,6 +133,20 @@ void pubOdometry(const Estimator &estimator, const std_msgs::Header &header)
         path.header.frame_id = "world";
         path.poses.push_back(pose_stamped);
         pub_path.publish(path);
+        //my code
+        ofstream foutVIO("/home/wang/vins_ws/src/VINS-Mono/output/VIO_path.txt", ios::app);
+        foutVIO.setf(ios::fixed, ios::floatfield);
+        foutVIO.precision(0);
+        foutVIO << header.stamp.toSec() * 1e9 << ",";
+        foutVIO.precision(5);
+        foutVIO << estimator.Ps[WINDOW_SIZE].x() << ","
+              << estimator.Ps[WINDOW_SIZE].y() << ","
+              << estimator.Ps[WINDOW_SIZE].z() << ","
+              << tmp_Q.x() << ","
+              << tmp_Q.y() << ","
+              << tmp_Q.z() << ","
+              << tmp_Q.w() << "," << endl;
+        foutVIO.close();
 
         Vector3d correct_t;
         Vector3d correct_v;
