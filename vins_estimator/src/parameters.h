@@ -38,6 +38,8 @@ extern int ESTIMATE_TD;
 extern int ROLLING_SHUTTER;
 extern double ROW, COL;
 
+//my code
+extern std::string VIO_PATH;
 
 void readParameters(ros::NodeHandle &n);
 

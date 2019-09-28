@@ -22,6 +22,8 @@ std::string VINS_RESULT_PATH;
 std::string IMU_TOPIC;
 double ROW, COL;
 double TD, TR;
+//my code
+std::string VIO_PATH;
 
 template <typename T>
 T readParam(ros::NodeHandle &n, std::string name)
@@ -60,6 +62,10 @@ void readParameters(ros::NodeHandle &n)
     fsSettings["output_path"] >> OUTPUT_PATH;
     VINS_RESULT_PATH = OUTPUT_PATH + "/vins_result_no_loop.csv";
     std::cout << "result path " << VINS_RESULT_PATH << std::endl;
+
+    //my code
+    fsSettings["vio_path"] >> VIO_PATH;
+    std::cout<<"vio_path\n"<<VIO_PATH<<std::endl;
 
     // create folder if not exists
     FileSystemHelper::createDirectoryIfNotExists(OUTPUT_PATH.c_str());

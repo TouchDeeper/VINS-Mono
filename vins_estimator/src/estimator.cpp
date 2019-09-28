@@ -4,6 +4,7 @@ Estimator::Estimator(): f_manager{Rs}
 {
     ROS_INFO("init begins");
     clearState();
+
 }
 
 void Estimator::setParameter()
@@ -17,6 +18,12 @@ void Estimator::setParameter()
     ProjectionFactor::sqrt_info = FOCAL_LENGTH / 1.5 * Matrix2d::Identity();
     ProjectionTdFactor::sqrt_info = FOCAL_LENGTH / 1.5 * Matrix2d::Identity();
     td = TD;
+    //my code
+//    foutVIO.open(VIO_PATH, fstream::trunc | fstream::out);
+//    if(!foutVIO){
+//        std::cout<<"can't open "<<VIO_PATH<<std::endl;
+//        exit(1);
+//    }
 }
 
 void Estimator::clearState()

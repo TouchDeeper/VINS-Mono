@@ -208,6 +208,12 @@ void relocalization_callback(const sensor_msgs::PointCloudConstPtr &points_msg)
 // thread: visual-inertial odometry
 void process()
 {
+    //my code
+    Eigen::Vector3d last_position;
+    Eigen::Vector3d current_position;
+    int num_key_position = 0;
+    double delta_mean = 0;
+
     while (true)
     {
         std::vector<std::pair<std::vector<sensor_msgs::ImuConstPtr>, sensor_msgs::PointCloudConstPtr>> measurements;
@@ -317,6 +323,35 @@ void process()
             printStatistics(estimator, whole_t);
             std_msgs::Header header = img_msg->header;
             header.frame_id = "world";
+            //my code
+//            estimator.foutVIO.setf(ios::fixed, ios::floatfield);
+//            estimator.foutVIO.precision(0);
+//            estimator.foutVIO <<fixed
+//                              << header.stamp.toSec() << " "
+//            estimator.foutVIO.precision(5);
+//                              << estimator.Ps[WINDOW_SIZE].x() << " "
+//                              << estimator.Ps[WINDOW_SIZE].y() << " "
+//                              << estimator.Ps[WINDOW_SIZE].z() << " "
+//                              << tmp_Q.x() << " "
+//                              << tmp_Q.y() << " "
+//                              << tmp_Q.z() << " "
+//                              << tmp_Q.w() << endl;
+//            double current_delta;
+//            if(last_position.size() <= 0)
+//            {
+//                last_position = Eigen::Vector3d(estimator.Ps[WINDOW_SIZE].x(), estimator.Ps[WINDOW_SIZE].y(), estimator.Ps[WINDOW_SIZE].z());
+//                current_position = Eigen::Vector3d(estimator.Ps[WINDOW_SIZE].x(), estimator.Ps[WINDOW_SIZE].y(), estimator.Ps[WINDOW_SIZE].z());
+//                current_delta = 0;
+//            } else{
+//                current_delta = std::abs(current_position.norm() - last_position.norm());
+//                num_key_position ++;
+//                if(current_delta > 5 * delta_mean)
+//                {
+//                    std::cout<<"abnormal key position occur"<<std::endl;
+//                    exit(1);
+//                }
+//                delta_mean = current_delta / num_key_position;
+//            }
 
             pubOdometry(estimator, header);
             pubKeyPoses(estimator, header);

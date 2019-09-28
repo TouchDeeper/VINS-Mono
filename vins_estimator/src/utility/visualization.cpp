@@ -133,20 +133,7 @@ void pubOdometry(const Estimator &estimator, const std_msgs::Header &header)
         path.header.frame_id = "world";
         path.poses.push_back(pose_stamped);
         pub_path.publish(path);
-        //my code
-        ofstream foutVIO("/home/wang/vins_ws/src/VINS-Mono/output/VIO_path.txt", ios::app);
-        foutVIO.setf(ios::fixed, ios::floatfield);
-        foutVIO.precision(0);
-        foutVIO << header.stamp.toSec() * 1e9 << ",";
-        foutVIO.precision(5);
-        foutVIO << estimator.Ps[WINDOW_SIZE].x() << ","
-              << estimator.Ps[WINDOW_SIZE].y() << ","
-              << estimator.Ps[WINDOW_SIZE].z() << ","
-              << tmp_Q.x() << ","
-              << tmp_Q.y() << ","
-              << tmp_Q.z() << ","
-              << tmp_Q.w() << "," << endl;
-        foutVIO.close();
+
 
         Vector3d correct_t;
         Vector3d correct_v;
@@ -168,21 +155,39 @@ void pubOdometry(const Estimator &estimator, const std_msgs::Header &header)
         pub_relo_path.publish(relo_path);
 
         // write result to file
-        ofstream foutC(VINS_RESULT_PATH, ios::app);
+//        ofstream foutC(VINS_RESULT_PATH, ios::app);
+//        foutC.setf(ios::fixed, ios::floatfield);
+//        foutC.precision(0);
+//        foutC << header.stamp.toSec() * 1e9 << ",";
+//        foutC.precision(5);
+//        foutC << estimator.Ps[WINDOW_SIZE].x() << ","
+//              << estimator.Ps[WINDOW_SIZE].y() << ","
+//              << estimator.Ps[WINDOW_SIZE].z() << ","
+//              << tmp_Q.w() << ","
+//              << tmp_Q.x() << ","
+//              << tmp_Q.y() << ","
+//              << tmp_Q.z() << ","
+//              << estimator.Vs[WINDOW_SIZE].x() << ","
+//              << estimator.Vs[WINDOW_SIZE].y() << ","
+//              << estimator.Vs[WINDOW_SIZE].z() << "," << endl;
+//        foutC.close();
+        // my code
+        ofstream foutC(VIO_PATH, ios::app);
+        if(!foutC){
+            std::cout<<"can't open "<<VIO_PATH<<std::endl;
+            exit(1);
+        }
         foutC.setf(ios::fixed, ios::floatfield);
-        foutC.precision(0);
-        foutC << header.stamp.toSec() * 1e9 << ",";
+        foutC.precision(10);
+        foutC << header.stamp.toSec() << " ";
         foutC.precision(5);
-        foutC << estimator.Ps[WINDOW_SIZE].x() << ","
-              << estimator.Ps[WINDOW_SIZE].y() << ","
-              << estimator.Ps[WINDOW_SIZE].z() << ","
-              << tmp_Q.w() << ","
-              << tmp_Q.x() << ","
-              << tmp_Q.y() << ","
-              << tmp_Q.z() << ","
-              << estimator.Vs[WINDOW_SIZE].x() << ","
-              << estimator.Vs[WINDOW_SIZE].y() << ","
-              << estimator.Vs[WINDOW_SIZE].z() << "," << endl;
+        foutC << estimator.Ps[WINDOW_SIZE].x() << " "
+              << estimator.Ps[WINDOW_SIZE].y() << " "
+              << estimator.Ps[WINDOW_SIZE].z() << " "
+              << tmp_Q.w() << " "
+              << tmp_Q.x() << " "
+              << tmp_Q.y() << " "
+              << tmp_Q.z() << endl;
         foutC.close();
     }
 }

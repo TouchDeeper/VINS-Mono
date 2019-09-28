@@ -12,6 +12,5 @@ A3_rs.launch
 test/
 test.launch
 .vscode/
-output/
 cmake-build-debug
 .idea
