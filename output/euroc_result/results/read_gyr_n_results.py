@@ -4,8 +4,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 
 rmses = []
-start_index = 1
-end_index = 27
+start_index = 10
+end_index = 21
 for i in range(start_index,end_index):
   zip_file = "../GYR_N/ape" + str(i) + ".zip"
   result = file_interface.load_res_file(zip_file)

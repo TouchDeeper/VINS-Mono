@@ -1,0 +1,3 @@
+[submodule "output/OrthogonalArrayTest"]
+	path = output/OrthogonalArrayTest
+	url = https://github.com/TouchDeeper/OrthogonalArrayTest.git

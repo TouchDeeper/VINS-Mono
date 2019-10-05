@@ -4,7 +4,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 
 rmses = []
-start_index = 7
+start_index = 8
 end_index = 27
 for i in range(start_index,end_index):
   zip_file = "../GYR_W/ape" + str(i) + ".zip"
